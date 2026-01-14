@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gianluigi Mautone | AI Automation Specialist</title>
+    <meta name="description" content="Portfolio di Gianluigi Mautone - AI Automation, n8n Workflows & Digital Operations">
+    
+    <!-- Google Fonts: Inter & JetBrains Mono (per il codice) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        slate: {
+                            850: '#1e293b', // Card bg lighter
+                            900: '#0f172a', // Section bg
+                            950: '#020617', // Main bg
+                        },
+                        indigo: {
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                        },
+                        violet: {
+                            500: '#8b5cf6',
+                        }
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "url(\"data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='%231e293b' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E\")",
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                        'glow': 'glow 4s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        glow: {
+                            '0%': { opacity: '0.4' },
+                            '100%': { opacity: '0.8' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Styles */
+        body {
+            background-color: #020617;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231e293b' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+        
+        html { scroll-padding-top: 5rem; }
+    </style>
+</head>
+<body class="text-slate-300 font-sans antialiased selection:bg-indigo-500 selection:text-white overflow-x-hidden">
+
+    <!-- NAVIGATION -->
+    <nav class="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="text-xl font-bold text-white tracking-tight flex items-center gap-2 group">
+                <span class="w-8 h-8 bg-indigo-600 rounded flex items-center justify-center text-xs font-mono group-hover:bg-indigo-500 transition-colors">GM</span>
+                <span class="opacity-90 group-hover:opacity-100 transition-opacity">Mautone<span class="text-indigo-500">.</span></span>
+            </a>
+            
+            <!-- Desktop Links -->
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#about" class="hover:text-white transition-colors">About</a>
+                <a href="#skills" class="hover:text-white transition-colors">Stack</a>
+                <a href="#projects" class="hover:text-white transition-colors">Progetti n8n</a>
+                <a href="#experience" class="hover:text-white transition-colors">Esperienza</a>
+                <a href="#contact" class="px-5 py-2.5 bg-white/5 border border-white/10 hover:bg-white/10 hover:border-indigo-500/50 text-white rounded-lg transition-all">Contattami</a>
+            </div>
+
+             <!-- Mobile Action (Simplified) -->
+             <div class="md:hidden">
+                <a href="#contact" class="text-indigo-400 text-sm font-semibold">Contattami</a>
+             </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="about" class="min-h-screen flex items-center justify-center pt-20 px-6 relative">
+        <!-- Ambient Light Effects -->
+        <div class="absolute top-1/3 left-0 w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[120px] -z-10 animate-glow"></div>
+        <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-violet-600/10 rounded-full blur-[100px] -z-10"></div>
+
+        <div class="max-w-5xl mx-auto text-center z-10">
+            
+            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight leading-tight animate-slide-up" style="animation-delay: 0.1s;">
+                Automation Engineering <br />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-violet-400 to-indigo-400 text-glow">
+                    & Digital Operations
+                </span>
+            </h1>
+            
+            <p class="text-lg md:text-xl text-slate-400 leading-relaxed max-w-2xl mx-auto mb-10 animate-slide-up" style="animation-delay: 0.2s;">
+                Colmo il divario tra le operazioni E-commerce e la <strong>AI Business Automation</strong>. Costruisco architetture multi-agente e workflow automatizzati per ridurre le inefficienze e scalare il business.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style="animation-delay: 0.3s;">
+                <!-- Main CTA: GitHub/n8n -->
+                <a href="#projects" class="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-lg shadow-lg shadow-indigo-500/20 transition-all hover:-translate-y-1">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
+                    Repository n8n & GitHub
+                </a>
+                
+                <!-- Secondary CTA -->
+                <a href="#contact" class="w-full sm:w-auto px-8 py-4 bg-transparent border border-slate-700 text-slate-300 font-medium rounded-lg hover:bg-slate-800/50 hover:text-white transition-all">
+                    Parliamo di lavoro
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills" class="py-24 relative">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-white mb-12 flex items-center">
+                <span class="w-10 h-1 bg-gradient-to-r from-indigo-500 to-violet-500 mr-4 rounded-full"></span>
+                Tech Stack
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Tech Card -->
+                <div class="glass-card p-8 rounded-2xl hover:border-indigo-500/30 transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-2 bg-indigo-500/10 rounded-lg text-indigo-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white">Development & AI</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded text-sm text-indigo-300 font-mono">Python</span>
+                        <span class="px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded text-sm text-indigo-300 font-mono">Generative AI</span>
+                        <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-slate-300">SQL</span>
+                        <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-slate-300">R</span>
+                        <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-slate-300">Google Analytics</span>
+                    </div>
+                </div>
+
+                <!-- Creative & Tools Card -->
+                <div class="glass-card p-8 rounded-2xl hover:border-violet-500/30 transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-2 bg-violet-500/10 rounded-lg text-violet-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white">Creative & Software</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-violet-900/20 border border-violet-500/20 rounded text-sm text-violet-200">Final Cut Pro</span>
+                        <span class="px-3 py-1 bg-violet-900/20 border border-violet-500/20 rounded text-sm text-violet-200">Illustrator</span>
+                        <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-slate-300">Photoshop</span>
+                        <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-slate-300">CRM Tools</span>
+                        <span class="px-3 py-1 bg-slate-800 border border-slate-700 rounded text-sm text-slate-300">Excel Advanced</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: PROJECTS & N8N -->
+    <section id="projects" class="py-24 bg-slate-900/50 border-y border-white/5 relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute right-0 top-0 w-1/3 h-full bg-gradient-to-l from-indigo-900/10 to-transparent"></div>
+
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-3xl font-bold text-white flex items-center mb-2">
+                        <span class="w-10 h-1 bg-gradient-to-r from-indigo-500 to-violet-500 mr-4 rounded-full"></span>
+                        Automazioni & Workflow
+                    </h2>
+                    <p class="text-slate-400 max-w-xl mt-4">
+                        Il mio focus attuale è lo sviluppo di automazioni complesse con n8n e Python.
+                        Esplora i sorgenti dei miei workflow e le integrazioni API direttamente su GitHub.
+                    </p>
+                </div>
+                <!-- GitHub Button Big -->
+                <a href="https://github.com/" target="_blank" class="mt-6 md:mt-0 inline-flex items-center gap-2 px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg border border-slate-600 transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
+                    Vai alla Repository
+                </a>
+            </div>
+
+            <!-- Project Placeholder Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Repo 1 -->
+                <div class="bg-slate-950 border border-slate-800 p-6 rounded-xl hover:border-indigo-500/50 transition-colors group cursor-pointer">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="text-indigo-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        </div>
+                        <span class="text-xs font-mono text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">Public</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">AI Marketing Funnel</h3>
+                    <p class="text-slate-400 text-sm mb-4">Automazione n8n per la generazione e distribuzione di contenuti marketing basati su trend e dati analitici.</p>
+                    <div class="flex gap-2">
+                        <span class="w-2 h-2 rounded-full bg-yellow-500 mt-1.5"></span>
+                        <span class="text-xs text-slate-500">Javascript</span>
+                    </div>
+                </div>
+
+                <!-- Repo 2 -->
+                <div class="bg-slate-950 border border-slate-800 p-6 rounded-xl hover:border-indigo-500/50 transition-colors group cursor-pointer">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="text-emerald-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        </div>
+                        <span class="text-xs font-mono text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">Public</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">E-commerce Data Sync</h3>
+                    <p class="text-slate-400 text-sm mb-4">Workflow per sincronizzare inventario e ordini tra Shopify e ERP aziendale con gestione errori automatica.</p>
+                    <div class="flex gap-2">
+                        <span class="w-2 h-2 rounded-full bg-blue-500 mt-1.5"></span>
+                        <span class="text-xs text-slate-500">Python</span>
+                    </div>
+                </div>
+
+                 <!-- Repo 3 -->
+                 <div class="bg-slate-950 border border-slate-800 p-6 rounded-xl hover:border-indigo-500/50 transition-colors group cursor-pointer">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="text-violet-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path></svg>
+                        </div>
+                        <span class="text-xs font-mono text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">Public</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">Multi-Agent Customer Support</h3>
+                    <p class="text-slate-400 text-sm mb-4">Sistema RAG (Retrieval Augmented Generation) per risposte automatiche intelligenti ai clienti.</p>
+                    <div class="flex gap-2">
+                        <span class="w-2 h-2 rounded-full bg-indigo-500 mt-1.5"></span>
+                        <span class="text-xs text-slate-500">n8n JSON</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE SECTION -->
+    <section id="experience" class="py-24 relative">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-white mb-12 flex items-center">
+                <span class="w-10 h-1 bg-gradient-to-r from-indigo-500 to-violet-500 mr-4 rounded-full"></span>
+                Esperienza Professionale
+            </h2>
+
+            <div class="relative border-l border-slate-800 ml-3 md:ml-6 space-y-16">
+                
+                <!-- Role 1 -->
+                <div class="relative pl-8 md:pl-12 group">
+                    <div class="absolute -left-[9px] top-0 w-5 h-5 bg-indigo-600 rounded-full border-4 border-slate-950 group-hover:bg-indigo-400 transition-colors"></div>
+                    
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+                        <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">E-Commerce Specialist & Digital Operations</h3>
+                        <span class="text-xs font-mono text-indigo-300 bg-indigo-900/20 border border-indigo-500/20 px-3 py-1 rounded-full mt-2 sm:mt-0 w-fit">2022 - 2025</span>
+                    </div>
+                    <p class="text-slate-400 text-sm mb-6 uppercase tracking-wider font-semibold">Devco Industrial Supplies (Milano)</p>
+                    
+                    <ul class="space-y-4">
+                        <li class="flex items-start text-slate-300">
+                            <span class="text-indigo-500 mr-3">▹</span>
+                            <span>Gestione integrata delle operazioni E-commerce lavorando trasversalmente con i team Marketing, Prodotto e Vendite per ottimizzare le performance.</span>
+                        </li>
+                        <li class="flex items-start text-slate-300">
+                            <span class="text-indigo-500 mr-3">▹</span>
+                            <span>Implementazione di strumenti di AI e automazione per la creazione di contenuti e la gestione del catalogo, garantendo l'integrità dei dati su migliaia di SKU.</span>
+                        </li>
+                        <li class="flex items-start text-slate-300">
+                            <span class="text-indigo-500 mr-3">▹</span>
+                            <span>Utilizzo avanzato di Excel e CRM per l'analisi dei KPI di vendita e del comportamento utente (Google Analytics), traducendo i dati in strategie di crescita.</span>
+                        </li>
+                        <li class="flex items-start text-slate-300">
+                            <span class="text-indigo-500 mr-3">▹</span>
+                            <span>Creazione di asset grafici tramite Photoshop e ottimizzazione dei flussi di lavoro digitali per ridurre il data entry manuale.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Role 2 -->
+                <div class="relative pl-8 md:pl-12 group">
+                    <div class="absolute -left-[9px] top-0 w-5 h-5 bg-slate-700 rounded-full border-4 border-slate-950 group-hover:bg-slate-500 transition-colors"></div>
+                    
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+                        <h3 class="text-xl font-bold text-white group-hover:text-slate-300 transition-colors">Real Estate Digital Consultant</h3>
+                        <span class="text-xs font-mono text-slate-400 bg-slate-900 border border-slate-800 px-3 py-1 rounded-full mt-2 sm:mt-0 w-fit">2016 - 2022</span>
+                    </div>
+                    <p class="text-slate-400 text-sm mb-6 uppercase tracking-wider font-semibold">MC Immobiliare (Vallo della Lucania)</p>
+                    
+                    <ul class="space-y-4">
+                        <li class="flex items-start text-slate-300">
+                            <span class="text-slate-600 mr-3">▹</span>
+                            <span>Gestione completa dell'immagine aziendale sul web e strategie di sponsorizzazione digitale per il portafoglio immobiliare.</span>
+                        </li>
+                        <li class="flex items-start text-slate-300">
+                            <span class="text-slate-600 mr-3">▹</span>
+                            <span>Sviluppo di relazioni a lungo termine con i clienti attraverso l'ascolto attivo e l'analisi dei bisogni, favorendo retention e referral.</span>
+                        </li>
+                        <li class="flex items-start text-slate-300">
+                            <span class="text-slate-600 mr-3">▹</span>
+                            <span>Negoziazione di contratti complessi e risoluzione di problemi critici tramite un approccio diplomatico e orientato al problem-solving.</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION SECTION -->
+    <section id="education" class="py-24 bg-slate-900/30 border-t border-white/5">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-white mb-12 flex items-center">
+                <span class="w-10 h-1 bg-gradient-to-r from-indigo-500 to-violet-500 mr-4 rounded-full"></span>
+                Formazione
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Cert 1 -->
+                <div class="p-6 rounded-xl border border-indigo-500/30 bg-indigo-900/10 hover:bg-indigo-900/20 transition-colors">
+                    <div class="text-indigo-400 font-bold text-sm mb-2 font-mono">2025</div>
+                    <h3 class="text-lg font-bold text-white mb-1">AI & Business Automation</h3>
+                    <p class="text-slate-400 text-sm">Academy Rapido Srl</p>
+                </div>
+                <!-- Cert 2 -->
+                <div class="p-6 rounded-xl border border-slate-800 bg-slate-950/50 hover:bg-slate-900 transition-colors">
+                    <div class="text-slate-500 font-bold text-sm mb-2 font-mono">2023</div>
+                    <h3 class="text-lg font-bold text-white mb-1">Google Data Analytics</h3>
+                    <p class="text-slate-400 text-sm">Coursera</p>
+                </div>
+                <!-- Cert 3 -->
+                <div class="p-6 rounded-xl border border-slate-800 bg-slate-950/50 hover:bg-slate-900 transition-colors">
+                    <div class="text-slate-500 font-bold text-sm mb-2 font-mono">2022</div>
+                    <h3 class="text-lg font-bold text-white mb-1">E-commerce Specialist</h3>
+                    <p class="text-slate-400 text-sm">Academy Rapido Srl</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT / FOOTER -->
+    <section id="contact" class="py-24 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Pronto ad innovare?</h2>
+            <p class="text-slate-400 mb-12 text-lg">
+                Sono disponibile per nuove opportunità in ambito AI Business Automation e Digital Operations.
+            </p>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-16">
+                <a href="mailto:gianluigimautone@gmail.com" class="flex items-center space-x-3 px-8 py-4 bg-white text-slate-950 font-bold rounded-lg hover:bg-indigo-50 transition-colors">
+                    <span>gianluigimautone@gmail.com</span>
+                </a>
+                
+                <a href="tel:+393315490090" class="flex items-center space-x-3 px-8 py-4 bg-slate-900 border border-slate-700 text-white font-medium rounded-lg hover:border-indigo-500 transition-colors">
+                    <span>+39 331 549 0090</span>
+                </a>
+            </div>
+
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
+                <p>&copy; 2026 Gianluigi Mautone.</p>
+                <p class="mt-2 md:mt-0">Vallo della Lucania, (SA)</p>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
