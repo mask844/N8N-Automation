@@ -597,7 +597,7 @@
                 { text: "Process Completed Successfully.", delay: 7200, color: "text-emerald-400 font-bold" }
             ];
 
-            auditForm.addEventListener('submit', async (e) => {
+            auditForm.addEventListener('submit', (e) => {
                 e.preventDefault();
 
                 if(!websiteInput.value || !emailInput.value) {
@@ -605,13 +605,40 @@
                     return;
                 }
 
-                // UI Switch
+                // 1. UI Switch
                 auditContent.classList.add('hidden');
                 loadingState.classList.remove('hidden');
 
-                // Start Terminal Animation
-                let startTime = Date.now();
-                
+                // 2. INVIO DATI A N8N (In parallelo all'animazione)
+                // Usiamo fetch senza 'await' per non bloccare l'animazione visiva
+                const payload = {
+                    url: websiteInput.value,
+                    email: emailInput.value,
+                    timestamp: new Date().toISOString(),
+                    source: "Portfolio Lead Magnet"
+                };
+
+                // NOTA SU CORS: Se n8n ti dà errore CORS, vedi istruzioni sotto
+                fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                        // 'Content-Type': 'application/x-www-form-urlencoded', // Prova questo se JSON fallisce
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log("Dati inviati correttamente a n8n");
+                    } else {
+                        console.error("Errore server n8n:", response.status);
+                    }
+                })
+                .catch(error => {
+                    console.error("Errore di connessione o CORS:", error);
+                });
+
+                // 3. Start Terminal Animation
                 logs.forEach(log => {
                     setTimeout(() => {
                         const p = document.createElement('div');
@@ -620,34 +647,19 @@
                         terminalOutput.appendChild(p);
                         terminalOutput.scrollTop = terminalOutput.scrollHeight;
                         
-                        // Update Progress Bar roughly based on log index
+                        // Update Progress Bar
                         const percent = Math.min(100, (logs.indexOf(log) + 1) / logs.length * 100);
                         progressBar.style.width = `${percent}%`;
 
                     }, log.delay);
                 });
 
-                // Simulation End
+                // 4. End Simulation (Show Success)
                 setTimeout(() => {
                     loadingState.classList.add('hidden');
                     successState.classList.remove('hidden');
                     successEmail.innerText = emailInput.value;
                 }, 7500);
-
-                // Fetch logic (Optional / Placeholder)
-                /*
-                try {
-                    await fetch(WEBHOOK_URL, {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({
-                            url: websiteInput.value,
-                            email: emailInput.value,
-                            date: new Date()
-                        })
-                    });
-                } catch (err) { console.log('Webhook simulated'); }
-                */
             });
         });
     </script>
