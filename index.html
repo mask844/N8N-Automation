@@ -663,6 +663,114 @@
             });
         });
     </script>
+    <!-- JAVASCRIPT FOR AI AUDIT LOGIC -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const auditForm = document.getElementById('audit-form');
+            const websiteInput = document.getElementById('website-url');
+            const emailInput = document.getElementById('user-email');
+            
+            // Containers
+            const auditContent = document.getElementById('audit-content');
+            const loadingState = document.getElementById('loading-state');
+            const successState = document.getElementById('success-state');
+            
+            // Loading Elements
+            const progressBar = document.getElementById('progress-bar');
+            const terminalOutput = document.getElementById('terminal-output');
+            const successEmail = document.getElementById('success-email');
+
+            // --- CONFIGURAZIONE ---
+            // Assicurati che il metodo nel nodo n8n sia POST
+            const WEBHOOK_URL = 'https://ggn8nauto.duckdns.org/webhook/audit'; 
+
+            // Terminal Logs Mockup
+            const logs = [
+                { text: "Initializing AI Agent handshake...", delay: 200 },
+                { text: "Resolving domain DNS records...", delay: 800 },
+                { text: "Connected to [Node-1]. Fetching SSL certificates...", delay: 1200 },
+                { text: "Parsing DOM structure...", delay: 1800 },
+                { text: "Analyzing metadata and keywords density...", delay: 2400 },
+                { text: "Detecting inefficient Javascript bundles...", delay: 3000 },
+                { text: "Checking for automation hooks in contact forms...", delay: 3500 },
+                { text: "Identifying API integration opportunities...", delay: 4200 },
+                { text: "WARNING: High manual workload detected in frontend.", delay: 4800, color: "text-yellow-400" },
+                { text: "Calculating scalability score...", delay: 5200 },
+                { text: "Generating optimization strategies [Workflow 1, 2, 3]...", delay: 5800 },
+                { text: "Compiling PDF Report...", delay: 6500 },
+                { text: "Finalizing data transmission...", delay: 7000 },
+                { text: "Process Completed Successfully.", delay: 7200, color: "text-emerald-400 font-bold" }
+            ];
+
+            auditForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                if(!websiteInput.value || !emailInput.value) {
+                    alert('Per favore compila tutti i campi.');
+                    return;
+                }
+
+                // 1. UI Switch
+                auditContent.classList.add('hidden');
+                loadingState.classList.remove('hidden');
+
+                // 2. PREPARAZIONE DATI (Uso URLSearchParams invece di JSON per evitare blocchi CORS aggressivi)
+                const payload = new URLSearchParams();
+                payload.append('url', websiteInput.value);
+                payload.append('email', emailInput.value);
+                payload.append('timestamp', new Date().toISOString());
+                payload.append('source', "Portfolio Lead Magnet");
+
+                console.log("Tentativo invio dati a:", WEBHOOK_URL);
+
+                // 3. INVIO DATI
+                fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        // Questo header è spesso più tollerato dai browser rispetto a application/json
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: payload
+                })
+                .then(response => {
+                    console.log("Risposta Server Status:", response.status);
+                    if (response.ok) {
+                        console.log("✅ SUCCESSO: Dati ricevuti da n8n");
+                    } else {
+                        console.error("❌ ERRORE SERVER: Il server ha risposto con errore.");
+                    }
+                })
+                .catch(error => {
+                    console.error("❌ ERRORE DI RETE/CORS:", error);
+                    // Nota: Anche se fallisce, l'animazione continua per non rompere l'esperienza utente,
+                    // ma l'errore sarà visibile nella Console (F12).
+                });
+
+                // 4. Start Terminal Animation
+                logs.forEach(log => {
+                    setTimeout(() => {
+                        const p = document.createElement('div');
+                        p.className = `${log.color || 'text-slate-300'} font-mono text-xs md:text-sm`;
+                        p.innerHTML = `<span class="opacity-50 mr-2">[${new Date().toLocaleTimeString('it-IT')}]</span> ${log.text}`;
+                        terminalOutput.appendChild(p);
+                        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+                        
+                        // Update Progress Bar
+                        const percent = Math.min(100, (logs.indexOf(log) + 1) / logs.length * 100);
+                        progressBar.style.width = `${percent}%`;
+
+                    }, log.delay);
+                });
+
+                // 5. End Simulation
+                setTimeout(() => {
+                    loadingState.classList.add('hidden');
+                    successState.classList.remove('hidden');
+                    successEmail.innerText = emailInput.value;
+                }, 7500);
+            });
+        });
+    </script>
 
 </body>
 </html>
